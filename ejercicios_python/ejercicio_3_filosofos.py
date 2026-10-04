@@ -68,7 +68,17 @@ def filosofo(id, rondas=3):
         #
         # TODO: Adquiere los tenedores adyacentes de forma segura, invoca comer(id)
         # y libera los tenedores:
-        pass
+                # Solución asimétrica: rompe la espera circular
+        if id == NUM_FILOSOFOS - 1 or id % 2 == 1:
+            primero = tenedor_der
+            segundo = tenedor_izq
+        else:
+            primero = tenedor_izq
+            segundo = tenedor_der
+
+        with tenedores[primero]:
+            with tenedores[segundo]:
+                comer(id)
         # =========================================================================
         # FIN TODO
         # =========================================================================
